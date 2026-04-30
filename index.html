@@ -17,19 +17,7 @@
       position:relative;
     }
 
-    .stars,.shooting-star,.deep-space, .nebula, .aurora, .floating-stars, .starfield-layer{position:absolute;inset:0;pointer-events:none}
-
-    .deep-space{background:radial-gradient(circle at 50% 50%, rgba(255,255,255,.02), transparent 35%), radial-gradient(circle at 20% 80%, rgba(0,100,255,.08), transparent 40%), radial-gradient(circle at 80% 20%, rgba(255,120,180,.06), transparent 35%)}
-
-    .starfield-layer{background-image:radial-gradient(1px 1px at 12% 24%, #fff, transparent),radial-gradient(1px 1px at 22% 54%, #fff, transparent),radial-gradient(1px 1px at 62% 34%, #fff, transparent),radial-gradient(1px 1px at 72% 74%, #fff, transparent),radial-gradient(1px 1px at 92% 44%, #fff, transparent);opacity:.6;animation:driftStars 28s linear infinite}
-
-    .nebula{background:radial-gradient(circle at 20% 30%, rgba(90,120,255,.18), transparent 35%),radial-gradient(circle at 75% 25%, rgba(255,180,220,.12), transparent 30%),radial-gradient(circle at 60% 70%, rgba(120,220,255,.10), transparent 35%);filter:blur(18px);animation:nebulaDrift 18s ease-in-out infinite alternate}
-
-    .aurora{background:linear-gradient(120deg, rgba(90,140,255,.08), rgba(255,255,255,0), rgba(120,255,220,.06));filter:blur(30px);animation:auroraMove 12s ease-in-out infinite alternate}
-
-    .floating-stars{background-image:radial-gradient(2px 2px at 8% 12%, #fff, transparent),radial-gradient(2px 2px at 30% 40%, #fff, transparent),radial-gradient(1px 1px at 70% 22%, #fff, transparent),radial-gradient(2px 2px at 82% 66%, #fff, transparent),radial-gradient(1px 1px at 52% 82%, #fff, transparent);animation:starFloat 20s linear infinite}
-
-    .sky-glow{position:absolute;inset:0;pointer-events:none}
+    .stars,.shooting-star,.sky-glow{position:absolute;inset:0;pointer-events:none}
 
     .stars{
       background-image:
@@ -40,13 +28,8 @@
         radial-gradient(2px 2px at 55% 60%, rgba(255,255,255,1), transparent),
         radial-gradient(1px 1px at 40% 15%, rgba(255,255,255,.8), transparent),
         radial-gradient(2px 2px at 90% 10%, rgba(255,255,255,.9), transparent),
-        radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,.7), transparent),
-        radial-gradient(3px 3px at 35% 35%, rgba(255,255,255,.95), transparent),
-        radial-gradient(2px 2px at 60% 12%, rgba(173,216,255,.9), transparent),
-        radial-gradient(2px 2px at 88% 48%, rgba(255,255,255,.9), transparent);
-      background-size: 100% 100%;
+        radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,.7), transparent);
       animation: twinkle 3s infinite ease-in-out alternate;
-      filter: drop-shadow(0 0 6px rgba(255,255,255,.35));
     }
 
     .sky-glow{
@@ -59,14 +42,6 @@
       50%{opacity:1;transform:scale(1.01)}
       100%{opacity:.8;transform:scale(1)}
     }
-
-    @keyframes nebulaDrift{0%{transform:translateX(0) translateY(0) scale(1)}100%{transform:translateX(20px) translateY(-15px) scale(1.08)}}
-
-    @keyframes auroraMove{0%{transform:translateX(-20px)}100%{transform:translateX(20px)}}
-
-    @keyframes starFloat{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
-
-    @keyframes driftStars{0%{transform:translateX(0) translateY(0)}50%{transform:translateX(-10px) translateY(6px)}100%{transform:translateX(0) translateY(0)}}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
 
     @keyframes pulseSky{
       0%,100%{opacity:.6}
@@ -189,20 +164,13 @@
     .top{transform:rotateX(90deg) translateZ(160px)}
     .bottom{transform:rotateX(-90deg) translateZ(160px)}
 
-    @keyframes cinematicReveal{\n      0%{opacity:0;transform:scale(.65) translateY(30px)}\n      100%{opacity:1;transform:scale(1) translateY(0)}\n    }\n\n    @keyframes rotate{
+    @keyframes rotate{
       from{transform:rotateX(-12deg) rotateY(0deg)}
       to{transform:rotateX(-12deg) rotateY(360deg)}
     }
   </style>
 </head>
 <body>
-  <audio id="bgMusic" loop>
-    <source src="josean-log-beso.mp3" type="audio/mpeg">
-  </audio>
-  <div class="deep-space"></div>
-  <div class="nebula"></div>
-  <div class="aurora"></div>
-  <div class="floating-stars"></div>
   <div class="sky-glow"></div>
   <div class="stars"></div>
   <div class="shooting-star"></div>
@@ -224,6 +192,23 @@
     </div>
   </div>
 
-  <script>\n    function startExperience(){\n      const btn = document.querySelector('.center-btn');\n      const title = document.querySelector('.lorena-title');\n      const scene = document.getElementById('scene');\n      const music = document.getElementById('bgMusic');\n\n      document.body.style.transition = 'transform 1.8s ease, filter 1.8s ease';\n      document.body.style.transform = 'scale(1.18)';\n      document.body.style.filter = 'brightness(1.15)';\n\n      btn.style.transition = 'opacity 0.8s ease';\n      title.style.transition = 'opacity 0.8s ease';\n      btn.style.opacity = '0';\n      title.style.opacity = '0';\n\n      let vol = 0;\n      music.volume = 0;\n      music.play().catch(()=>{});\n      const fade = setInterval(() => {\n        vol += 0.03;\n        music.volume = Math.min(vol, 0.35);\n        if (vol >= 0.35) clearInterval(fade);\n      }, 180);\n\n      setTimeout(() => {\n        btn.style.display = 'none';\n        title.style.display = 'none';\n        scene.style.display = 'block';\n        scene.style.animation = 'cinematicReveal 1.4s ease';\n        document.body.style.transform = 'scale(1)';\n        document.body.style.filter = 'brightness(1)';\n      }, 1200);\n    }\n\n    const cube = document.getElementById('cube');\n    let rotateY = 0;\n    document.addEventListener('click', function(e){\n      if(e.target.closest('.scene')){\n        rotateY += 90;\n        cube.style.animation = 'none';\n        cube.style.transform = `rotateX(-12deg) rotateY(${rotateY}deg)`;\n        cube.style.transition = 'transform 1s ease';\n      }\n    });\n  </script>
+  <script>
+    function startExperience(){
+      document.querySelector('.center-btn').style.display='none';
+      document.getElementById('scene').style.display='block';
+    }
+
+    const cube = document.getElementById('cube');
+    let rotateY = 0;
+
+    document.addEventListener('click', function(e){
+      if(e.target.closest('.scene')){
+        rotateY += 90;
+        cube.style.animation = 'none';
+        cube.style.transform = `rotateX(-12deg) rotateY(${rotateY}deg)`;
+        cube.style.transition = 'transform 1s ease';
+      }
+    });
+  </script>
 </body>
 </html>
